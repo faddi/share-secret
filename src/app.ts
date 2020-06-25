@@ -7,7 +7,7 @@ interface IResult<T> {
 interface IError<TypeString, ErrorType = unknown> {
   isError: true;
   type: TypeString;
-  error?: unknown;
+  error?: ErrorType;
 }
 
 async function generatePair() {
@@ -45,6 +45,8 @@ function getElements() {
     showSendSectionButton: f("#show-send-section-button"),
     showReceiveSectionButton: f("#show-receive-section-button"),
     generateKeysButton: f("#generate-keys-button"),
+    publicKeyArea: f("#public-key"),
+    privateKeyArea: f("#private-key"),
   };
 }
 
@@ -73,17 +75,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     const keyPair = res.result;
 
-    const encrypted = keyPair.publicKey.encrypt("hello");
+    (elems.publicKeyArea as HTMLTextAreaElement).value = pki.publicKeyToPem(
+      keyPair.publicKey
+    );
 
-    console.log(encrypted);
+    (elems.privateKeyArea as HTMLTextAreaElement).value = pki.privateKeyToPem(
+      keyPair.privateKey
+    );
 
-    const out = keyPair.privateKey.decrypt(encrypted);
+    // const encrypted = keyPair.publicKey.encrypt("hello");
 
-    console.log("other side: ", out);
+    // console.log(encrypted);
 
-    const key = pki.publicKeyToPem(keyPair.publicKey);
+    // const out = keyPair.privateKey.decrypt(encrypted);
 
-    console.log(key);
+    // console.log("other side: ", out);
+
+    // const key = pki.publicKeyToPem(keyPair.publicKey);
+
+    // console.log(key);
 
     // console.log(keyPair);
   });
