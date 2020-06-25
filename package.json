@@ -1,0 +1,19 @@
+{
+  "name": "secret-sharing",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:faddi/secret-sharing.git",
+  "author": "faddi <faddi.idris@gmail.com>",
+  "license": "MIT",
+  "browserslist": [
+    "last 1 Chrome versions"
+  ],
+  "devDependencies": {
+    "@types/node-forge": "^0.9.4",
+    "parcel": "^1.12.4",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "node-forge": "^0.9.1"
+  }
+}
