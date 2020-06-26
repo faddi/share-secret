@@ -5,6 +5,10 @@
   "repository": "git@github.com:faddi/secret-sharing.git",
   "author": "faddi <faddi.idris@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
   "browserslist": [
     "last 1 Chrome versions"
   ],
