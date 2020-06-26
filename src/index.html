@@ -19,6 +19,24 @@
     <section id="send-secret" class="hidden">
       <h3>send secret</h3>
       add pub key & encrypt message
+
+      <button id="encrypt-message-button">Encrypt message</button>
+      <p>
+        public key
+        <textarea id="send-public-key" cols="80" rows="10"></textarea>
+      </p>
+      <p>
+        Secret message
+        <textarea id="secret-message-area" cols="80" rows="10"></textarea>
+      </p>
+      <p>
+        Encrypted message
+        <textarea
+          id="send-encrypted-message-area"
+          cols="80"
+          rows="10"
+        ></textarea>
+      </p>
     </section>
 
     <section id="receive-secret" class="hidden">
@@ -27,12 +45,25 @@
       generate keys & use private key to decrypt message
       <p>
         public
-        <textarea id="public-key"></textarea>
+        <textarea id="receive-public-key" cols="80" rows="10"></textarea>
       </p>
-
       <p>
         private
-        <textarea id="private-key"></textarea>
+        <textarea id="receive-private-key" cols="80" rows="30"></textarea>
+      </p>
+      <hr />
+      <button id="decrypt-message-button">Decrypt message</button>
+      <p>
+        Encrypted message
+        <textarea
+          id="receive-encrypted-message-area"
+          cols="80"
+          rows="10"
+        ></textarea>
+      </p>
+      <p>
+        Decrypted message
+        <textarea id="decrypted-message-area" cols="80" rows="10"></textarea>
       </p>
     </section>
 

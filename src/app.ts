@@ -1,4 +1,4 @@
-import { pki } from "node-forge";
+import { pki, util } from "node-forge";
 
 interface IResult<T> {
   isError: false;
@@ -45,8 +45,19 @@ function getElements() {
     showSendSectionButton: f("#show-send-section-button"),
     showReceiveSectionButton: f("#show-receive-section-button"),
     generateKeysButton: f("#generate-keys-button"),
-    publicKeyArea: f("#public-key"),
-    privateKeyArea: f("#private-key"),
+    receivePublicKeyArea: f("#receive-public-key") as HTMLTextAreaElement,
+    receivePrivateKeyArea: f("#receive-private-key") as HTMLTextAreaElement,
+    encryptMessageButton: f("#encrypt-message-button"),
+    sendPublicKeyArea: f("#send-public-key") as HTMLTextAreaElement,
+    secretMessageArea: f("#secret-message-area") as HTMLTextAreaElement,
+    sendEncryptedMessageArea: f(
+      "#send-encrypted-message-area"
+    ) as HTMLTextAreaElement,
+    receiveEncryptedMessageArea: f(
+      "#receive-encrypted-message-area"
+    ) as HTMLTextAreaElement,
+    decryptedMessageArea: f("#decrypted-message-area") as HTMLTextAreaElement,
+    decryptMessageButton: f("#decrypt-message-button"),
   };
 }
 
@@ -65,6 +76,35 @@ document.addEventListener("DOMContentLoaded", function (event) {
     elems.sendSection.classList.remove("hidden");
   });
 
+  elems.decryptMessageButton.addEventListener("click", () => {
+    const encryptedMessageB64 = elems.receiveEncryptedMessageArea.value;
+
+    const encryptedMessage = util.decode64(encryptedMessageB64);
+
+    const privateKey = pki.privateKeyFromPem(elems.receivePrivateKeyArea.value);
+
+    const decryptedMessageBytes = privateKey.decrypt(encryptedMessage);
+
+    const decryptedMessage = util.decodeUtf8(decryptedMessageBytes);
+
+    elems.decryptedMessageArea.value = decryptedMessage;
+  });
+
+  elems.encryptMessageButton.addEventListener("click", () => {
+    const text = elems.sendPublicKeyArea.value;
+    const message = elems.secretMessageArea.value;
+
+    const publicKey = pki.publicKeyFromPem(text);
+
+    const messageBytes = util.encodeUtf8(message);
+
+    const encryptedMessage = publicKey.encrypt(messageBytes);
+
+    const encryptedMessageB64 = util.encode64(encryptedMessage);
+
+    elems.sendEncryptedMessageArea.value = encryptedMessageB64;
+  });
+
   elems.generateKeysButton.addEventListener("click", async () => {
     const res = await generatePair();
 
@@ -75,13 +115,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     const keyPair = res.result;
 
-    (elems.publicKeyArea as HTMLTextAreaElement).value = pki.publicKeyToPem(
-      keyPair.publicKey
-    );
-
-    (elems.privateKeyArea as HTMLTextAreaElement).value = pki.privateKeyToPem(
-      keyPair.privateKey
-    );
+    elems.receivePublicKeyArea.value = pki.publicKeyToPem(keyPair.publicKey);
+    elems.receivePrivateKeyArea.value = pki.privateKeyToPem(keyPair.privateKey);
 
     // const encrypted = keyPair.publicKey.encrypt("hello");
 
