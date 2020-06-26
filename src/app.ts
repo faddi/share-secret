@@ -61,6 +61,22 @@ function getElements() {
   };
 }
 
+function showError(err: Error | string) {
+  console.error(err);
+  alert(err);
+}
+
+// function safe<T = (args: ...any[]) => any, E>(
+//   fn: T,
+//   errType?: E
+// ): IError<E, Error> | IResult<ReturnType<T>> {
+//   try {
+//     return { isError: false, result: fn() };
+//   } catch (e) {
+//     return { isError: true, type: errType, error: e };
+//   }
+// }
+
 document.addEventListener("DOMContentLoaded", function (event) {
   console.log("loaded");
 
@@ -117,19 +133,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     elems.receivePublicKeyArea.value = pki.publicKeyToPem(keyPair.publicKey);
     elems.receivePrivateKeyArea.value = pki.privateKeyToPem(keyPair.privateKey);
-
-    // const encrypted = keyPair.publicKey.encrypt("hello");
-
-    // console.log(encrypted);
-
-    // const out = keyPair.privateKey.decrypt(encrypted);
-
-    // console.log("other side: ", out);
-
-    // const key = pki.publicKeyToPem(keyPair.publicKey);
-
-    // console.log(key);
-
-    // console.log(keyPair);
   });
 });

@@ -17,18 +17,24 @@
     </section>
 
     <section id="send-secret" class="hidden">
-      <h3>send secret</h3>
-      add pub key & encrypt message
-
-      <button id="encrypt-message-button">Encrypt message</button>
+      <h3>Send secret</h3>
+      <h4>
+        Step 1. Enter received public key (see receive secret) and secret
+        message.
+      </h4>
       <p>
-        public key
+        Public key
         <textarea id="send-public-key" cols="80" rows="10"></textarea>
       </p>
       <p>
         Secret message
         <textarea id="secret-message-area" cols="80" rows="10"></textarea>
       </p>
+
+      <h4>
+        Step 2. Encrypt the message and send the encrypted message back.
+      </h4>
+      <button id="encrypt-message-button">Encrypt message</button>
       <p>
         Encrypted message
         <textarea
@@ -40,19 +46,26 @@
     </section>
 
     <section id="receive-secret" class="hidden">
-      <h3>receive secret</h3>
+      <h3>Receive secret</h3>
+      <h4>Step 1. generate keys</h4>
       <button id="generate-keys-button">Generate keys</button>
       generate keys & use private key to decrypt message
       <p>
-        public
+        Public
         <textarea id="receive-public-key" cols="80" rows="10"></textarea>
       </p>
       <p>
-        private
+        Private
         <textarea id="receive-private-key" cols="80" rows="30"></textarea>
       </p>
+      <h4>
+        Step 2. send public key to other party and wait for the encrypted
+        message.
+      </h4>
       <hr />
-      <button id="decrypt-message-button">Decrypt message</button>
+      <h4>
+        Step 3. Enter the encrypted message and decrypt.
+      </h4>
       <p>
         Encrypted message
         <textarea
@@ -61,6 +74,7 @@
           rows="10"
         ></textarea>
       </p>
+      <button id="decrypt-message-button">Decrypt message</button>
       <p>
         Decrypted message
         <textarea id="decrypted-message-area" cols="80" rows="10"></textarea>
