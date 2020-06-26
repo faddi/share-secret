@@ -1,1 +1,1 @@
-# secret-sharing
+# share secret
